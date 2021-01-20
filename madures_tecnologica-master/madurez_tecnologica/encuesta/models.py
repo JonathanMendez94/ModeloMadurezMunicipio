@@ -1,4 +1,3 @@
-
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
@@ -14,28 +13,28 @@ class AuthGroup(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_group'
+        db_table = "auth_group"
 
 
 class AuthGroupPermissions(models.Model):
     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
+    permission = models.ForeignKey("AuthPermission", models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'auth_group_permissions'
-        unique_together = (('group', 'permission'),)
+        db_table = "auth_group_permissions"
+        unique_together = (("group", "permission"),)
 
 
 class AuthPermission(models.Model):
     name = models.CharField(max_length=255)
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    content_type = models.ForeignKey("DjangoContentType", models.DO_NOTHING)
     codename = models.CharField(max_length=100)
 
     class Meta:
         managed = False
-        db_table = 'auth_permission'
-        unique_together = (('content_type', 'codename'),)
+        db_table = "auth_permission"
+        unique_together = (("content_type", "codename"),)
 
 
 class AuthUser(models.Model):
@@ -52,7 +51,10 @@ class AuthUser(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_user'
+        db_table = "auth_user"
+
+    def __str__(self):
+        return "%s" % (self.first_name)
 
 
 class AuthUserGroups(models.Model):
@@ -61,8 +63,8 @@ class AuthUserGroups(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_user_groups'
-        unique_together = (('user', 'group'),)
+        db_table = "auth_user_groups"
+        unique_together = (("user", "group"),)
 
 
 class AuthUserUserPermissions(models.Model):
@@ -71,17 +73,19 @@ class AuthUserUserPermissions(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_user_user_permissions'
-        unique_together = (('user', 'permission'),)
+        db_table = "auth_user_user_permissions"
+        unique_together = (("user", "permission"),)
 
 
 class Categorias(models.Model):
-    idcategoria = models.AutoField(db_column='idCategoria', primary_key=True)  # Field name made lowercase.
+    idcategoria = models.AutoField(
+        db_column="idCategoria", primary_key=True
+    )  # Field name made lowercase.
     categoria = models.CharField(max_length=300)
 
     class Meta:
         managed = False
-        db_table = 'categorias'
+        db_table = "categorias"
 
     def __str__(self):
         return self.categoria
@@ -93,12 +97,14 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.SmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey(
+        "DjangoContentType", models.DO_NOTHING, blank=True, null=True
+    )
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'django_admin_log'
+        db_table = "django_admin_log"
 
 
 class DjangoContentType(models.Model):
@@ -107,8 +113,8 @@ class DjangoContentType(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'django_content_type'
-        unique_together = (('app_label', 'model'),)
+        db_table = "django_content_type"
+        unique_together = (("app_label", "model"),)
 
 
 class DjangoMigrations(models.Model):
@@ -118,7 +124,7 @@ class DjangoMigrations(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'django_migrations'
+        db_table = "django_migrations"
 
 
 class DjangoSession(models.Model):
@@ -128,29 +134,44 @@ class DjangoSession(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'django_session'
+        db_table = "django_session"
 
 
 class Encuestas(models.Model):
-    idencuesta = models.AutoField(db_column='idEncuesta', primary_key=True)  # Field name made lowercase.
+    idencuesta = models.AutoField(
+        db_column="idEncuesta", primary_key=True
+    )  # Field name made lowercase.
     nombre = models.CharField(max_length=300)
     valor = models.IntegerField(blank=True, null=True)
 
-
     class Meta:
         managed = False
-        db_table = 'encuestas'
+        db_table = "encuestas"
+
+    def __str__(self):
+        return "%s" % (self.nombre)
 
 
 class Fichas(models.Model):
-    idfichas = models.AutoField(db_column='idFichas', primary_key=True)  # Field name made lowercase.
+    idfichas = models.AutoField(
+        db_column="idFichas", primary_key=True
+    )  # Field name made lowercase.
     fecha = models.DateField()
-    gad_servi_usuario = models.ForeignKey('GadSerUser', models.DO_NOTHING)
-    pregunta_respuesta = models.ForeignKey('PreguntasRespuestas', models.DO_NOTHING, blank=True, null=True)
+    gad_servi_usuario = models.ForeignKey("GadSerUser", models.DO_NOTHING)
+    pregunta_respuesta = models.ForeignKey(
+        "PreguntasRespuestas", models.DO_NOTHING, blank=True, null=True
+    )
 
     class Meta:
         managed = False
-        db_table = 'fichas'
+        db_table = "fichas"
+
+    def __str__(self):
+        return "%s %s %s" % (
+            self.fecha,
+            self.gad_servi_usuario,
+            self.pregunta_respuesta,
+        )
 
 
 class Gad(models.Model):
@@ -159,70 +180,95 @@ class Gad(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'gad'
+        db_table = "gad"
 
     def __str__(self):
         return self.gad
 
+
 class GadSerUser(models.Model):
-    idgadservuser = models.AutoField(db_column='idGadServUser', primary_key=True)  # Field name made lowercase.
-    gad_ser = models.ForeignKey('GadsServicios', models.DO_NOTHING, blank=True, null=True)
+    idgadservuser = models.AutoField(
+        db_column="idGadServUser", primary_key=True
+    )  # Field name made lowercase.
+    gad_ser = models.ForeignKey(
+        "GadsServicios", models.DO_NOTHING, blank=True, null=True
+    )
     user = models.ForeignKey(AuthUser, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'gad_ser_user'
+        db_table = "gad_ser_user"
+
+    def __str__(self):
+        return "%s %s" % (
+            self.gad_ser,
+            self.user,
+        )
 
 
 class GadsServicios(models.Model):
-    idgadservicio = models.AutoField(db_column='idGadServicio', primary_key=True)  # Field name made lowercase.
+    idgadservicio = models.AutoField(
+        db_column="idGadServicio", primary_key=True
+    )  # Field name made lowercase.
     gad = models.ForeignKey(Gad, models.DO_NOTHING)
-    servicios = models.ForeignKey('Servicios', models.DO_NOTHING)
+    servicios = models.ForeignKey("Servicios", models.DO_NOTHING)
     fecha = models.DateField()
 
     class Meta:
         managed = False
-        db_table = 'gads_servicios'
+        db_table = "gads_servicios"
 
     def __str__(self):
-        return '%s' % (self.servicios)
+        return "%s" % (self.servicios)
 
 
 class Preguntas(models.Model):
-    idpregunta = models.AutoField(db_column='idPregunta', primary_key=True)  # Field name made lowercase.
+    idpregunta = models.AutoField(
+        db_column="idPregunta", primary_key=True
+    )  # Field name made lowercase.
     pregunta = models.CharField(max_length=300)
     encuesta = models.ForeignKey(Encuestas, models.DO_NOTHING)
     categoria = models.ForeignKey(Categorias, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'preguntas'
+        db_table = "preguntas"
+
+    def __str__(self):
+        return "%s %s" % (self.pregunta, self.encuesta)
 
 
 class PreguntasRespuestas(models.Model):
-    idpreguntaresp = models.AutoField(db_column='idPreguntaResp', primary_key=True)  # Field name made lowercase.
+    idpreguntaresp = models.AutoField(
+        db_column="idPreguntaResp", primary_key=True
+    )  # Field name made lowercase.
     pregunta = models.ForeignKey(Preguntas, models.DO_NOTHING, blank=True, null=True)
-    respuesta = models.ForeignKey('Respuestas', models.DO_NOTHING, blank=True, null=True)
+    respuesta = models.ForeignKey(
+        "Respuestas", models.DO_NOTHING, blank=True, null=True
+    )
     valor = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'preguntas_respuestas'
+        db_table = "preguntas_respuestas"
 
     def __str__(self):
-        return '%s' % (self.respuesta)
+        return "%s %s" % (self.pregunta, self.respuesta)
 
 
 class Respuestas(models.Model):
-    idrespuesta = models.AutoField(db_column='idRespuesta', primary_key=True)  # Field name made lowercase.
+    idrespuesta = models.AutoField(
+        db_column="idRespuesta", primary_key=True
+    )  # Field name made lowercase.
     respuesta = models.CharField(max_length=300)
 
     class Meta:
         managed = False
-        db_table = 'respuestas'
+        db_table = "respuestas"
 
     def __str__(self):
-        return '%s' % (self.respuesta)
+        return "%s" % (self.respuesta)
+
 
 class Servicios(models.Model):
     id_servicio = models.AutoField(primary_key=True)
@@ -230,7 +276,7 @@ class Servicios(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'servicios'
+        db_table = "servicios"
 
     def __str__(self):
         return self.servicio

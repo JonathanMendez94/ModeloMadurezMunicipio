@@ -18,15 +18,18 @@ from . import views
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('encuesta/<int:encuesta>/', login_required(views.encuesta), name='encuesta'),
-    path('encuesta2/<int:encuesta>/', views.encuesta, name='encuesta2'),
-    path('pregunta/<int:encuesta>/<int:serv>/', login_required(views.pregunta), name='preguntas'),
-    path('pregunta2/<int:encuesta>/<int:serv>/', views.pregunta, name='preguntas2'),
-    path('singup/', views.signup, name='signup'),
-    path('index/', views.index, name='index'),
-    path('gracias/<int:encuesta>/', views.gracias, name='gracias'),
-    path('resultado/', views.resultado, name='resultado'),
-    path('graficas/<str:cuestionario>/<int:GadServ>/', views.grafica, name='graficas'),
-    path('', views.index2, name='index2'),
-
+    path("encuesta/<int:encuesta>/", login_required(views.encuesta), name="encuesta"),
+    path("encuesta2/<int:encuesta>/", views.encuesta, name="encuesta2"),
+    path(
+        "pregunta/<int:encuesta>/<int:serv>/",
+        login_required(views.pregunta),
+        name="preguntas",
+    ),
+    path("pregunta2/<int:encuesta>/<int:serv>/", views.pregunta, name="preguntas2"),
+    path("singup/", views.signup, name="signup"),
+    path("index/", views.index, name="index"),
+    path("gracias/<int:encuesta>/", views.gracias, name="gracias"),
+    path("resultado/", views.resultado, name="resultado"),
+    path("graficas/<str:cuestionario>/<int:GadServ>/", views.grafica, name="graficas"),
+    path("", views.index2, name="index2"),
 ]
